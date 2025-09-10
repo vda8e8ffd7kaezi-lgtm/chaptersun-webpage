@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
       transitionAndGo(url.href);
     });
   })();
-
+  
   
 
   // 既存のフォームイベントリスナーを置き換え
