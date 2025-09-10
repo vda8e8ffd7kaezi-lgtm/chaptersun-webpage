@@ -37,6 +37,9 @@ body {
   line-height: 1.75;
 }
 
+/* Force-hide any residual Dify chat bubble if an old cache injects it */
+#dify-chatbot-bubble-button, #dify-chatbot-bubble-window { display: none !important; }
+
 /* --- Body Background Glow --- */
 /* bodyの疑似要素で、動くオーロラ背景を追加 */
 body::before {
