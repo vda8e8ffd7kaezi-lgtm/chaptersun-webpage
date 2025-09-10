@@ -2,6 +2,9 @@
 
 Static site for ChapteruSun — an AI adoption support business for SMEs.
 
+## Live
+- URL: https://vda8e8ffd7kaezi-lgtm.github.io/chaptersun-webpage/
+
 ## Pages
 - `index.html` (Home)
 - `services.html` (Services)
@@ -15,11 +18,10 @@ Static site for ChapteruSun — an AI adoption support business for SMEs.
 - `assets/js/main.js`
 
 ## Deploy (GitHub Pages)
-1. Create a new GitHub repo and push this folder.
-2. In repo Settings → Pages, set Source to `Deploy from a branch`, Branch `main` and folder `/` (root).
-3. Optional: add `CNAME` for a custom domain.
+- Status: Configured (branch `main`, folder `/`).
+- Update: Push changes to `main` and Pages deploys automatically.
+- Optional: Add `CNAME` at repo root to use a custom domain.
 
 > Notes
 - `.nojekyll` prevents Jekyll processing on Pages.
 - Contact form is a stub; connect Formspree/Formspark/Netlify Forms later.
-
