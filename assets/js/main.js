@@ -168,34 +168,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('contact-form');
   if (form) {
     form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
       // 既存のメッセージを削除
       const existingMsg = form.querySelector('.form-message');
-      if (existingMsg) {
-        existingMsg.remove();
-      }
+      if (existingMsg) existingMsg.remove();
 
+      // 同意チェック（未同意なら送信を止める）
       const agree = form.querySelector('#agree');
       if (agree && !agree.checked) {
-        // alert の代わりにメッセージを挿入
+        e.preventDefault();
         const msg = document.createElement('p');
         msg.className = 'form-message form-error';
         msg.textContent = '送信前にプライバシーポリシーに同意してください。';
         const checkboxWrap = agree.closest('.checkbox');
-        if (checkboxWrap) checkboxWrap.after(msg);
-        else form.appendChild(msg);
+        if (checkboxWrap) checkboxWrap.after(msg); else form.appendChild(msg);
         agree.focus();
         return;
       }
 
-      // 送信機能のダミーメッセージ
-      const msg = document.createElement('p');
-      msg.className = 'form-message form-info';
-      msg.textContent = '送信機能は後日接続します。現在はご利用いただけません。';
-      const actions = form.querySelector('.form-actions button');
-      if (actions) actions.insertAdjacentElement('afterend', msg);
-      else form.appendChild(msg);
+      // 同意済みの場合はデフォルト送信（FormsubmitにPOST）を許可
+      // ここでは preventDefault しない
     });
   }
 

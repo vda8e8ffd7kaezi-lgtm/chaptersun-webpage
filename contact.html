@@ -52,7 +52,13 @@
 
       <section class="section">
         <div class="container narrow">
-          <form class="form" id="contact-form" action="#" method="post" novalidate>
+          <form class="form" id="contact-form" action="https://formsubmit.co/postmaster@ch3.sakura.ne.jp" method="POST" novalidate>
+            <!-- Formsubmit settings -->
+            <input type="hidden" name="_subject" value="【Webお問い合わせ】ChapteruSun" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_next" value="thanks.html" />
+            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
             <div class="form-grid">
               <div class="form-field">
                 <label for="name">お名前<span class="req">必須</span></label>
@@ -90,7 +96,7 @@
               </div>
               <button type="submit" class="btn btn-primary">送信</button>
             </div>
-            <p class="note">送信機能は後日接続します（GitHub Pages運用を想定）。</p>
+            <p class="note">送信後は確認ページに移動します。</p>
           </form>
         </div>
       </section>
