@@ -1129,21 +1129,21 @@ body.preloading .site-footer {
   opacity: 1;
 }
 
-/* --- Page Slide Transition --- */
+/* --- Page Fade Transition --- */
 .page-fade {
   position: fixed;
   inset: 0;
   z-index: 10000;
   pointer-events: none;
-  background: var(--primary); /* サイトのテーマカラー（青）を使用 */
-  transform: translateX(-100%); /* 初期状態：画面の左側で見えない位置に配置 */
-  transition: transform 0.6s cubic-bezier(0.86, 0, 0.07, 1); /* スライドのアニメーションを設定 */
+  background: #1a2230; /* サイト背景色に合わせたフェード */
+  opacity: 0; /* 初期は表示しない */
+  transition: opacity 0.6s ease; /* フェードのアニメーション */
 }
-.page-fade.cover {
-  transform: translateX(0%); /* 画面を完全に覆う */
+.page-fade.cover { /* フェードインで覆う */
+  opacity: 1;
 }
-.page-fade.leave {
-  transform: translateX(100%); /* 画面の右側へスライドして消える */
+.page-fade.leave { /* フェードアウトで見せる */
+  opacity: 0;
 }
 
 /* ローダー自体に開くための扉（疑似要素）を追加 */
