@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="ja">
-  <head>
+    <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ChapteruSun | 生成AI導入サポーター</title>
     <meta name="description" content="中小企業・個人事業主のための生成AI導入サポーター。業務効率化×コスト削減×売上アップを実現します。AI導入支援・AI研修・AI開発・SNS運用代行。" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@700;800&family=Inter:wght@400;600;700&family=Zen+Kaku+Gothic+New:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@700;800&family=Inter:wght@400;600;700&family=Zen+Kaku+Gothic+New:wght@600;700;800&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/styles.css" />
     <link rel="icon" href="image/favicon.svg?v=2" type="image/svg+xml" />
     <link rel="icon" href="image/logoclear.png?v=2" type="image/png" sizes="32x32" />
@@ -62,6 +62,7 @@
       <section class="hero hero-niplanning" data-aurora-color1="#3b82f6" data-aurora-color2="#06b6d4">
         <div class="hero-video" aria-hidden="true"></div>
         <canvas class="hero-particles" aria-hidden="true"></canvas>
+        <canvas class="hero-noise" aria-hidden="true"></canvas>
         <div class="container hero-inner">
           <div class="hero-copy">
             <h1>
@@ -74,12 +75,50 @@
             </div>
           </div>
         </div>
+        <div class="hero-tagline">Towards the Future with AI</div>
         <div class="scroll-mouse" aria-hidden="true"><span class="wheel"></span></div>
         <div class="scrolldown" aria-hidden="true"><span>Scroll</span></div>
+        
       </section>
       
       <div class="perspective-wrapper">
-      <section class="features section reveal-rotate-left" data-aurora-color1="#3b82f6" data-aurora-color2="#6366f1">
+      <section class="firstview section">
+        <div class="container">
+          <div class="fvm-content narrow reveal-rise">
+            <h2 class="fvm-heading">AI導入=ただの便利ツール紹介で終わらせません。</h2>
+            <p>経営課題や現場の悩みを丁寧にヒアリングし、</p>
+            <p>共に最適な形を探しながら<span class="fvm-emph">成果の出るAI活用</span>を実現します。</p>
+            <p class="fvm-space" aria-hidden="true"></p>
+            <p>導入後も運用や改善を共に考え、社員の皆様に根付くまで伴走することで、</p>
+            <p>単なる効率化にとどまらず<span class="fvm-emph">新しい価値を生み出す力</span>へ変えます。</p>
+            <p class="fvm-space" aria-hidden="true"></p>
+            <p>お客様がAIを武器に未来を切り拓けるよう、</p>
+            <p>信頼できるパートナーであり続けることをお約束します。</p>
+          </div>
+        </div>
+      </section>
+      </div>
+      
+      <div class="perspective-wrapper">
+      <section class="services section reveal-rotate-left" data-aurora-color1="#06b6d4" data-aurora-color2="#8b5cf6">
+        <div class="container">
+          <h2 class="section-title">サービス</h2>
+          <div class="grid grid-2">
+            <a class="card link reveal-child" href="services.html">
+              <h3>AI導入サポート</h3>
+              <p>現場ヒアリングをもとに業務整理・優先順位付けを実施し、スモールスタートでの計画を策定します。</p>
+            </a>
+            <a class="card link reveal-child" href="services.html">
+              <h3>SNS運用代行</h3>
+              <p>企画から制作、運用まで一貫対応。リソースを抑えつつ、ブランドに合った継続的な発信を実現します。</p>
+            </a>
+          </div>
+        </div>
+      </section>
+      </div>
+      
+      <div class="perspective-wrapper">
+      <section class="features section reveal-rotate-right" data-aurora-color1="#3b82f6" data-aurora-color2="#6366f1">
         <div class="container">
           <h2 class="section-title">選ばれる理由</h2>
           <div class="grid grid-3">
@@ -114,24 +153,6 @@
               <h3>小さく始めて効果を可視化</h3>
               <p>スモールスタートで投資対効果を確認し、段階的に拡大。</p>
             </div>
-          </div>
-        </div>
-      </section>
-      </div>
-      
-      <div class="perspective-wrapper">
-      <section class="services section reveal-rotate-right" data-aurora-color1="#06b6d4" data-aurora-color2="#8b5cf6">
-        <div class="container">
-          <h2 class="section-title">サービス</h2>
-          <div class="grid grid-2">
-            <a class="card link reveal-child" href="services.html">
-              <h3>AI導入サポート</h3>
-              <p>現場ヒアリングをもとに業務整理・優先順位付けを実施し、スモールスタートでの計画を策定します。</p>
-            </a>
-            <a class="card link reveal-child" href="services.html">
-              <h3>SNS運用代行</h3>
-              <p>企画から制作、運用まで一貫対応。リソースを抑えつつ、ブランドに合った継続的な発信を実現します。</p>
-            </a>
           </div>
         </div>
       </section>
@@ -212,13 +233,13 @@
           <div class="grid">
             <div class="card testimonial reveal-child">
               <p class="quote">メール予約の初期応対をAIが一次受けし、保険種別の説明や来院前問診の要約をスタッフに提案。<br>
-              待ち時間は平均10％短縮、問い合わせの取りこぼしも減少しました。<br>
+              <span class="fvm-emph">待ち時間は平均10％短縮、問い合わせの取りこぼしも減少しました。</span><br>
               個人情報の取り扱いポリシー策定と職員研修まで伴走いただき、今では無理のない運用ができています。</p>
               <div class="author">— クリニックN 様</div>
             </div>
             <div class="card testimonial reveal-child">
               <p class="quote">現場の紙と電話が多い課題を相談しました。AIによる安全書類のチェック、写真の自動タグ付け、日報の要約まで担い、<br>
-              所長・職員の事務作業が週20時間減。工程変更の影響も瞬時に洗い出され、手戻りが激減しました。<br>
+              <span class="fvm-emph">所長・職員の事務作業が週20時間減。</span><span class="fvm-emph">工程変更の影響も瞬時に洗い出され、手戻りが激減しました。</span><br>
               現場の声を吸い上げながら小さく改善を重ね、今後の定着運用へ共に動いていただいております。</p>
               <div class="author">— 建設会社Y 様</div>
             </div>
@@ -233,8 +254,8 @@
 
       
       <div class="perspective-wrapper">
-      <section class="access section reveal-rotate-left" data-aurora-color1="#0ea5e9" data-aurora-color2="#22d3ee">
-        <div class="container">
+      <section class="access section" data-aurora-color1="#0ea5e9" data-aurora-color2="#22d3ee">
+        <div class="container reveal-rise">
           <h2 class="section-title">アクセス</h2>
           <p>〒810-0015 福岡県福岡市中央区那の川2丁目</p>
           <div class="map-embed">

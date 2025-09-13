@@ -73,6 +73,15 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('load', () => { loaded = true; });
     // Safety: force finish after 5s even if load event never fires
     setTimeout(() => { loaded = true; }, 5000);
+
+    // Hard failsafe: if for any reason we didn't finish, force close preloader
+    setTimeout(() => {
+      if (!document.body.classList.contains('is-loadedFirst')) {
+        document.body.classList.add('is-loadedFirst');
+        preloader.classList.add('hide');
+        setTimeout(() => preloader && preloader.remove(), 1000);
+      }
+    }, 8000);
   }
 
   const toggle = document.querySelector('.nav-toggle');
@@ -245,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Global scroll FX for titles, cards and testimonials
   (function initGlobalScrollFx() {
     const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const targets = Array.from(document.querySelectorAll('.section-title, .card.link, .testimonial'));
+    const targets = Array.from(document.querySelectorAll('.section-title, .card.link, .testimonial, .reveal-rise'));
     if (!targets.length) return;
     if (reduce) {
       targets.forEach((el) => el.classList.add('in'));
@@ -279,8 +288,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const applyColors = (el) => {
       const c1 = el.getAttribute('data-aurora-color1');
       const c2 = el.getAttribute('data-aurora-color2');
-      const v1 = hexToRgba(c1, 0.16);
-      const v2 = hexToRgba(c2, 0.12);
+      // brighten global aurora glows (slightly higher alpha)
+      const v1 = hexToRgba(c1, 0.24);
+      const v2 = hexToRgba(c2, 0.18);
       const root = document.documentElement;
       if (v1) root.style.setProperty('--aurora-color-1', v1);
       if (v2) root.style.setProperty('--aurora-color-2', v2);
@@ -322,7 +332,109 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // (reverted) 3D reveal uses transition via .in class only
 
-  
+  // --- Global Parallax Glows (lightweight, GPU-friendly) ---
+  (function initParallaxGlows() {
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const l1 = document.createElement('div');
+    const l2 = document.createElement('div');
+    l1.className = 'aurora-layer aurora-layer-1';
+    l2.className = 'aurora-layer aurora-layer-2';
+    Object.assign(l1.style, {
+      position: 'fixed', inset: '-20vmax', zIndex: -2, pointerEvents: 'none',
+      background: 'radial-gradient(42vmax 30vmax at 22% 18%, color-mix(in srgb, var(--aurora-color-1, rgba(120,160,255,0.7)) 70%, white 30%), transparent 72%)',
+      transform: 'translate3d(0,0,0)', willChange: 'transform'
+    });
+    Object.assign(l2.style, {
+      position: 'fixed', inset: '-20vmax', zIndex: -2, pointerEvents: 'none',
+      background: 'radial-gradient(40vmax 28vmax at 78% 26%, color-mix(in srgb, var(--aurora-color-2, rgba(140,210,200,0.65)) 70%, white 30%), transparent 72%)',
+      transform: 'translate3d(0,0,0)', willChange: 'transform'
+    });
+    document.body.appendChild(l1);
+    document.body.appendChild(l2);
+
+    if (reduce) return; // no motion
+
+    let mx = 0, my = 0;
+    const apply = () => {
+      const amp = (window.innerWidth <= 720) ? 6 : 12; // smaller shift on mobile
+      const ax = (mx * amp).toFixed(2) + 'px';
+      const ay = (my * amp).toFixed(2) + 'px';
+      l1.style.transform = `translate3d(${ax}, ${ay}, 0)`;
+      l2.style.transform = `translate3d(${(-mx * amp).toFixed(2)}px, ${(-my * amp).toFixed(2)}px, 0)`;
+    };
+    window.addEventListener('mousemove', (e) => {
+      const w = window.innerWidth, h = window.innerHeight;
+      mx = (e.clientX / w) - 0.5;
+      my = (e.clientY / h) - 0.5;
+      apply();
+    }, { passive: true });
+    window.addEventListener('scroll', apply, { passive: true });
+    apply();
+  })();
+
+  // --- Hero Headline Typewriter ---
+  (function initHeroTypewriter() {
+    const h1 = document.querySelector('.hero-niplanning .hero-copy h1');
+    if (!h1) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (h1.dataset.typewriterInit === '1') return;
+
+    const full = (h1.textContent || '').trim();
+    if (!full) return;
+    h1.dataset.typewriterInit = '1';
+
+    // Preserve layout height to avoid jump during typing
+    const preRect = h1.getBoundingClientRect();
+    if (preRect && preRect.height) h1.style.minHeight = Math.ceil(preRect.height) + 'px';
+
+    // Build typewriter structure
+    const textSpan = document.createElement('span');
+    textSpan.className = 'typewriter-text';
+    const caret = document.createElement('span');
+    caret.className = 'typewriter-caret';
+    h1.setAttribute('aria-label', full);
+    h1.textContent = '';
+    h1.appendChild(textSpan);
+    h1.appendChild(caret);
+
+    const startTyping = () => {
+      // Start shortly after rise-in finishes
+      const START_DELAY = 500; // ms
+      setTimeout(() => {
+        let i = 0;
+        const step = () => {
+          if (i <= full.length) {
+            textSpan.textContent = full.slice(0, i);
+            i++;
+            // Variable pacing for punctuation
+            const prev = full.charAt(i - 1);
+            let spd = 55;
+            if (/[,、，.。!！?？]/.test(prev)) spd += 180;
+            if (/\s/.test(prev)) spd = 30;
+            setTimeout(step, spd);
+          } else {
+            caret.classList.add('done');
+            setTimeout(() => { try { caret.remove(); } catch (_) {} }, 800);
+            // Release min-height after finish
+            setTimeout(() => { h1.style.minHeight = ''; }, 300);
+          }
+        };
+        step();
+      }, START_DELAY);
+    };
+
+    if (document.body.classList.contains('is-loadedFirst')) startTyping();
+    else {
+      const mo = new MutationObserver(() => {
+        if (document.body.classList.contains('is-loadedFirst')) {
+          mo.disconnect();
+          startTyping();
+        }
+      });
+      mo.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    }
+  })();
+
 
   // --- 3D Particle Stream ---
   (function initParticleStream() {
@@ -427,6 +539,70 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     window.addEventListener('resize', onResize);
   })();
+
+  // --- Hero Canvas Noise (lightweight blobs) ---
+  (function initHeroCanvasNoise() {
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const section = document.querySelector('.hero-niplanning');
+    const canvas = section && section.querySelector('.hero-noise');
+    if (!section || !canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    function resize() {
+      w = section.clientWidth; h = section.clientHeight; dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.floor(w * dpr); canvas.height = Math.floor(h * dpr);
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Colors from CSS vars if present
+    const root = getComputedStyle(document.documentElement);
+    const c1 = root.getPropertyValue('--aurora-color-1') || 'rgba(120,160,255,0.18)';
+    const c2 = root.getPropertyValue('--aurora-color-2') || 'rgba(140,210,200,0.14)';
+
+    const blobs = Array.from({ length: 5 }).map((_, i) => ({
+      x: Math.random(), y: Math.random(),
+      vx: (Math.random() * 0.22 + 0.06) * (Math.random() < 0.5 ? -1 : 1),
+      vy: (Math.random() * 0.22 + 0.06) * (Math.random() < 0.5 ? -1 : 1),
+      r: 0.26 + Math.random() * 0.20,
+      color: i % 2 ? c1.trim() : c2.trim()
+    }));
+
+    let running = false;
+    function draw(ts) {
+      if (!running) return;
+      ctx.clearRect(0, 0, w, h);
+      ctx.globalCompositeOperation = 'lighter';
+      blobs.forEach(b => {
+        b.x += b.vx * 0.0022; b.y += b.vy * 0.0022;
+        if (b.x < 0 || b.x > 1) b.vx *= -1;
+        if (b.y < 0 || b.y > 1) b.vy *= -1;
+        const cx = b.x * w, cy = b.y * h;
+        const rad = Math.min(w, h) * b.r;
+        const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, rad);
+        g.addColorStop(0, b.color.replace(/\)$/, ',0.34)'));
+        g.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(cx, cy, rad, 0, Math.PI * 2); ctx.fill();
+      });
+      ctx.globalCompositeOperation = 'source-over';
+      requestAnimationFrame(draw);
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !reduce) {
+          if (!running) { running = true; requestAnimationFrame(draw); }
+        } else {
+          running = false;
+        }
+      });
+    }, { threshold: 0.1 });
+    io.observe(section);
+  })();
+
 
   /* Removed legacy hero animation (initTextParticles) start
     let w = section.offsetWidth;
@@ -705,3 +881,7 @@ if (cursorAura) {
 }
 
 // (magnetic effect removed by request)
+
+/* Crossfade page transition was removed per request */
+
+// (removed)
