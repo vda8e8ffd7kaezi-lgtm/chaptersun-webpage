@@ -309,22 +309,11 @@
           wipe(sessionStorage);
         } catch (_) {}
 
-        // 2) ページ読み込みごとに新しい UUID を発行して会話をリセット
-        const newUUID = (function uuidv4() {
-          if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
-          // Fallback UUIDv4 generator
-          return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-          });
-        })();
-
         window.difyChatbotConfig = {
           token: TOKEN,
           inputs: {},
-          systemVariables: {
-            conversation_id: newUUID,
-          },
+          // Let Dify create a fresh conversation automatically (no explicit conversation_id)
+          systemVariables: {},
           userVariables: {},
         };
       })();
