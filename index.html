@@ -286,5 +286,46 @@
     <script src="assets/js/main.js"></script>
     <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 
+    <!-- Dify Chatbot (TOPページのみ) -->
+    <script>
+     window.difyChatbotConfig = {
+      token: 'gTVnOQOrE9Y7W4lf',
+      inputs: {},
+      systemVariables: {},
+      userVariables: {},
+     }
+    </script>
+    <script
+     src="https://udify.app/embed.min.js"
+     id="gTVnOQOrE9Y7W4lf"
+     defer>
+    </script>
+    <style>
+      /* TOPページの見た目調整（表示制御はCSS本体にて） */
+      #dify-chatbot-bubble-button { background-color: #1C64F2 !important; }
+      #dify-chatbot-bubble-window { width: 24rem !important; height: 40rem !important; }
+    </style>
+    <script>
+      // Ensure chatbot follows scroll and floats above hero/content
+      (function pinChatbot() {
+        const apply = () => {
+          ['dify-chatbot-bubble-button','dify-chatbot-bubble-window'].forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.style.position = 'fixed';
+            el.style.right = '20px';
+            el.style.bottom = '20px';
+            el.style.zIndex = '2147483647';
+          });
+        };
+        // Run now and observe for late-loaded embed
+        apply();
+        const mo = new MutationObserver(apply);
+        mo.observe(document.documentElement, { childList: true, subtree: true });
+        window.addEventListener('load', apply);
+        setTimeout(apply, 1200);
+      })();
+    </script>
+
   </body>
   </html>

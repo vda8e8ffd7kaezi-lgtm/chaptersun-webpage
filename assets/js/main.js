@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     visited = false;
   }
 
+  // (Chatbot is embedded only on index.html)
   // If there is no preloader (non-top pages), reveal immediately
   if (!hasPreloader) {
     // ensure content shows without preloader transition

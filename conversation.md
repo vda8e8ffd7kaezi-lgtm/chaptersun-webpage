@@ -324,3 +324,24 @@
 備考
 - 「TOP → 事業について」などのページ遷移は、現在は青パネルのスライド演出で統一。速度は0.6s（CSS/JS同期）。
 - 低速モーション（reduced motion）を尊重し、アニメーションは自動で無効化します。
+
+### 追加対応（同日）
+- TOPヒーローの英字キャッチコピーを追加
+  - 文言: “Towards the Future with AI”
+  - 位置: ヒーローアニメーションの空きスペース（中央よりやや下、スクロールUIの少し上）
+  - フォント: Montserrat 600（近未来・シンプル系。Google Fonts読み込み追加）
+  - スタイル: ブルー系グラデーション（#00E0FF → #0080FF）、letter-spacing 0.08em、薄い光沢/ネオン風の淡い外枠と発光
+  - 実装: `index.html` に `<div class="hero-tagline">` を追加、`assets/css/styles.css` に `.hero-tagline` を定義
+
+- セクション順の入れ替え（ホーム）
+  - 「サービス」を「選ばれる理由」の前に移動（2つの `perspective-wrapper` ブロックを入れ替え）
+  - 回転演出の方向も入れ替え: サービス → `reveal-rotate-left`、選ばれる理由 → `reveal-rotate-right`
+
+- ヘッダーの常時表示化
+  - `.site-header` を `position: fixed; top: 0; z-index: 9999;` に変更し、スクロールしても常に表示
+  - `body { padding-top: 64px }`（モバイルは60px）を追加してレイアウトのズレを解消
+  - `.site-header.scrolled` の濃度/影の切替ロジックは維持
+
+変更ファイル
+- `index.html`
+- `assets/css/styles.css`
