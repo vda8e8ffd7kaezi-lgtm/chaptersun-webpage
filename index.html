@@ -349,6 +349,66 @@
         setTimeout(apply, 1200);
       })();
     </script>
+    <script>
+      // Reset conversation when the chat window is closed (minimized)
+      (function resetChatOnClose() {
+        const TOKEN = 'gTVnOQOrE9Y7W4lf';
+        const wipeStores = () => {
+          try {
+            const patterns = ['dify', 'chatbot', 'udify', TOKEN.toLowerCase()];
+            const wipe = (store) => {
+              try {
+                for (let i = store.length - 1; i >= 0; i--) {
+                  const key = store.key(i);
+                  if (!key) continue;
+                  const lower = key.toLowerCase();
+                  if (patterns.some(p => lower.includes(p))) store.removeItem(key);
+                }
+              } catch (_) {}
+            };
+            wipe(localStorage); wipe(sessionStorage);
+          } catch (_) {}
+        };
+
+        const isWindowOpen = () => {
+          const w = document.getElementById('dify-chatbot-bubble-window');
+          if (!w) return false;
+          const cs = window.getComputedStyle(w);
+          if (cs.display === 'none' || cs.visibility === 'hidden' || parseFloat(cs.opacity || '1') < 0.05) return false;
+          const r = w.getBoundingClientRect();
+          // Heuristic: open window should be at least 200x200
+          return r.width > 200 && r.height > 200;
+        };
+
+        const reEmbed = () => {
+          // Remove existing elements
+          ['dify-chatbot-bubble-window', 'dify-chatbot-bubble-button'].forEach(id => {
+            const el = document.getElementById(id); if (el) el.remove();
+          });
+          const s = document.getElementById(TOKEN); if (s) s.remove();
+          // Clear storage to ensure fresh conversation
+          wipeStores();
+          // Reset config and re-add script
+          window.difyChatbotConfig = { token: TOKEN, inputs: {}, systemVariables: {}, userVariables: {} };
+          const ns = document.createElement('script');
+          ns.src = 'https://udify.app/embed.min.js';
+          ns.id = TOKEN; ns.defer = true;
+          document.body.appendChild(ns);
+        };
+
+        let wasOpen = false;
+        const tick = () => {
+          const open = isWindowOpen();
+          if (wasOpen && !open) {
+            // Closed now -> reset for the next open
+            setTimeout(reEmbed, 150);
+          }
+          wasOpen = open;
+        };
+        // Polling is robust against deep shadow DOM/iframe internals
+        setInterval(tick, 500);
+      })();
+    </script>
 
   </body>
   </html>
