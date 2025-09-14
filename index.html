@@ -350,7 +350,7 @@
       })();
     </script>
     <script>
-      // Reset conversation when the chat window is closed (minimized)
+      // Reset conversation when the chat window is closed (minimized), without removing the widget
       (function resetChatOnClose() {
         const TOKEN = 'gTVnOQOrE9Y7W4lf';
         const wipeStores = () => {
@@ -376,37 +376,34 @@
           const cs = window.getComputedStyle(w);
           if (cs.display === 'none' || cs.visibility === 'hidden' || parseFloat(cs.opacity || '1') < 0.05) return false;
           const r = w.getBoundingClientRect();
-          // Heuristic: open window should be at least 200x200
-          return r.width > 200 && r.height > 200;
+          return r.width > 200 && r.height > 200; // heuristic
         };
 
-        const reEmbed = () => {
-          // Remove existing elements
-          ['dify-chatbot-bubble-window', 'dify-chatbot-bubble-button'].forEach(id => {
-            const el = document.getElementById(id); if (el) el.remove();
-          });
-          const s = document.getElementById(TOKEN); if (s) s.remove();
-          // Clear storage to ensure fresh conversation
-          wipeStores();
-          // Reset config and re-add script
-          window.difyChatbotConfig = { token: TOKEN, inputs: {}, systemVariables: {}, userVariables: {} };
-          const ns = document.createElement('script');
-          ns.src = 'https://udify.app/embed.min.js';
-          ns.id = TOKEN; ns.defer = true;
-          document.body.appendChild(ns);
+        const reloadIframeIfAny = () => {
+          const w = document.getElementById('dify-chatbot-bubble-window');
+          if (!w) return;
+          const iframe = w.querySelector('iframe');
+          if (iframe && iframe.src) {
+            try { iframe.src = iframe.src; } catch (_) {}
+          }
         };
 
         let wasOpen = false;
+        let resetPending = false;
         const tick = () => {
           const open = isWindowOpen();
           if (wasOpen && !open) {
-            // Closed now -> reset for the next open
-            setTimeout(reEmbed, 150);
+            // Just closed: clear persisted data and mark reset for next open
+            wipeStores();
+            resetPending = true;
+          }
+          if (!wasOpen && open && resetPending) {
+            // Just opened after a close: ensure iframe reloads so no in-memory history remains
+            setTimeout(() => { reloadIframeIfAny(); resetPending = false; }, 150);
           }
           wasOpen = open;
         };
-        // Polling is robust against deep shadow DOM/iframe internals
-        setInterval(tick, 500);
+        setInterval(tick, 400);
       })();
     </script>
 
