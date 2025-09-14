@@ -288,12 +288,46 @@
 
     <!-- Dify Chatbot (TOPページのみ) -->
     <script>
-     window.difyChatbotConfig = {
-      token: 'gTVnOQOrE9Y7W4lf',
-      inputs: {},
-      systemVariables: {},
-      userVariables: {},
-     }
+      (function setupDifyFreshConversation() {
+        const TOKEN = 'gTVnOQOrE9Y7W4lf';
+        // 1) 既存のDify関連の保存データを削除（念のため）
+        try {
+          const patterns = ['dify', 'chatbot', 'udify', TOKEN.toLowerCase()];
+          const wipe = (store) => {
+            try {
+              for (let i = store.length - 1; i >= 0; i--) {
+                const key = store.key(i);
+                if (!key) continue;
+                const lower = key.toLowerCase();
+                if (patterns.some(p => lower.includes(p))) {
+                  store.removeItem(key);
+                }
+              }
+            } catch (_) {}
+          };
+          wipe(localStorage);
+          wipe(sessionStorage);
+        } catch (_) {}
+
+        // 2) ページ読み込みごとに新しい UUID を発行して会話をリセット
+        const newUUID = (function uuidv4() {
+          if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
+          // Fallback UUIDv4 generator
+          return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+          });
+        })();
+
+        window.difyChatbotConfig = {
+          token: TOKEN,
+          inputs: {},
+          systemVariables: {
+            conversation_id: newUUID,
+          },
+          userVariables: {},
+        };
+      })();
     </script>
     <script
      src="https://udify.app/embed.min.js"
