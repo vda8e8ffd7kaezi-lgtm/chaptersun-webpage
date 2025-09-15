@@ -1568,11 +1568,10 @@ body.preloading .site-footer {
   .hero-niplanning .hero-copy h1 {
     white-space: nowrap !important;
     word-break: keep-all;
-    overflow: hidden; /* 念のため */
-    text-overflow: clip;
+    /* overflow を外し、下のアンダーラインを表示 */
     letter-spacing: 0;
     line-height: 1.15;
     font-weight: 700; /* 幅を少し抑える */
-    font-size: clamp(16px, 4.6vw, 20px);
+    font-size: clamp(18px, 5.6vw, 22px);
   }
 }
