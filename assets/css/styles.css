@@ -1565,13 +1565,20 @@ body.preloading .site-footer {
 
 /* --- Mobile: keep top headline on one line --- */
 @media (max-width: 480px) {
+  /* スマホでは見出しを1行で横幅いっぱいに近づけて表示 */
   .hero-niplanning .hero-copy h1 {
     white-space: nowrap !important;
     word-break: keep-all;
-    /* overflow を外し、下のアンダーラインを表示 */
-    letter-spacing: 0;
-    line-height: 1.15;
-    font-weight: 700; /* 幅を少し抑える */
-    font-size: clamp(18px, 5.6vw, 22px);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    font-weight: 800;
+    /* 画面幅と左右20pxの余白を考慮し、文字数に合わせて概算スケール */
+    font-size: calc((100vw - 40px) * 0.074);
+  }
+  /* スマホでも下線が確実に表示されるように明示 */
+  .hero-niplanning h1::after {
+    display: block !important;
+    bottom: -8px;
+    z-index: 1;
   }
 }
