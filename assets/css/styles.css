@@ -1566,8 +1566,13 @@ body.preloading .site-footer {
 /* --- Mobile: keep top headline on one line --- */
 @media (max-width: 480px) {
   .hero-niplanning .hero-copy h1 {
-    white-space: nowrap;
+    white-space: nowrap !important;
     word-break: keep-all;
-    font-size: clamp(18px, 6.2vw, 26px);
+    overflow: hidden; /* 念のため */
+    text-overflow: clip;
+    letter-spacing: 0;
+    line-height: 1.15;
+    font-weight: 700; /* 幅を少し抑える */
+    font-size: clamp(16px, 4.6vw, 20px);
   }
 }
