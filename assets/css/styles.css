@@ -1583,7 +1583,7 @@ body.preloading .site-footer {
   }
   /* スマホ: ヒーロー直下のリード文をさらに約2px小さく */
   .hero-niplanning .lead {
-    font-size: 14px;
+    font-size: 14px !important;
     line-height: 1.75;
   }
 }
