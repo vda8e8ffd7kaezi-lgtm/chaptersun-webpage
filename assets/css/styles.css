@@ -229,6 +229,9 @@ body { padding-top: 64px; }
 /* Profile image */
 .profile-photo { max-width: 260px; border-radius: 12px; display: block; margin-top: 12px; border: 1px solid var(--border); }
 
+/* Emphasis size tweak on Profile page */
+.page-profile .fvm-emph { font-size: 1.2em; }
+
 /* Profile layout and badge */
 .profile-meta { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: start; }
 .profile-badge { display: flex; align-items: flex-start; justify-content: flex-start; }
@@ -250,6 +253,10 @@ body { padding-top: 64px; }
   color: #e5e7eb;
 }
 .page-contact .page-header p { color: #e5e7eb; }
+
+/* Remove bottom separators on Profile and Contact pages */
+.page-profile .section::after,
+.page-contact .section::after { display: none; }
 
 /* Privacy page header uses site background (no light panel) */
 .page-privacy .page-header {
