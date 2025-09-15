@@ -130,7 +130,8 @@ h1, h2, h3, .section-title {
 .nav { display: flex; gap: 16px; align-items: center; }
 .nav a { padding: 8px 10px; color: #e2e8f0; }
 .nav a[aria-current], .nav a:hover { color: #fff; text-shadow: 0 0 16px rgba(59,130,246,0.45); }
-.nav-toggle { display: none; background: none; border: 1px solid var(--border); color: var(--text); padding: 6px 10px; border-radius: 8px; }
+.nav-toggle { display: none; background: rgba(255,255,255,0.06); border: 1px solid rgba(147, 197, 253, 0.45); color: #e2e8f0; padding: 6px 10px; border-radius: 8px; }
+.nav-toggle:hover { background: rgba(255,255,255,0.10); border-color: rgba(191, 219, 254, 0.6); }
 /* Ensure header contact button text stays white, not overridden by nav link color */
 .nav a.btn-primary { color: #fff; }
 .nav a.btn-primary:hover { color: #fff; }
@@ -206,6 +207,14 @@ body { padding-top: 64px; }
   color: #e5e7eb;
 }
 .page-profile .page-header p { color: #e5e7eb; }
+
+/* Thanks page header uses site background (no light panel) */
+.page-thanks .page-header {
+  background: transparent;
+  border-bottom: none;
+  color: #e5e7eb;
+}
+.page-thanks .page-header p { color: #e5e7eb; }
 
 /* Profile page: make section heading ("プロフィール") blue like "ご挨拶" */
 .page-profile .section .container > h2 {
@@ -456,7 +465,8 @@ body { padding-top: 64px; }
   background: linear-gradient(90deg, var(--primary), var(--primary-2));
   -webkit-background-clip: text; background-clip: text;
   color: transparent; -webkit-text-fill-color: transparent;
-  white-space: nowrap;
+  white-space: normal; /* allow wrapping on small screens */
+  overflow-wrap: anywhere; /* break long CJK lines gracefully */
 }
 
 .firstview .fvm-emph { 
@@ -780,7 +790,9 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); }
 
 @media (max-width: 720px) {
   .header-inner { height: 60px; }
-  .nav { position: absolute; right: 12px; top: 64px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 10px; display: none; flex-direction: column; min-width: 220px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .nav { position: absolute; right: 12px; top: 64px; background: rgba(12, 18, 34, 0.90); border: 1px solid rgba(147, 197, 253, 0.25); border-radius: 12px; padding: 10px; display: none; flex-direction: column; min-width: 220px; box-shadow: 0 18px 48px rgba(2, 12, 38, 0.45); backdrop-filter: blur(14px) saturate(160%); }
+  .nav a { color: #e2e8f0; }
+  .nav a:hover { color: #ffffff; text-shadow: 0 0 16px rgba(59,130,246,0.45); }
   .nav.open { display: flex; }
   .nav-toggle { display: inline-block; }
   .grid-3, .grid-4 { grid-template-columns: 1fr; }

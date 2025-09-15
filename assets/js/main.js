@@ -195,6 +195,29 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      // thanks.html への戻り先は絶対URLに補正（FormSubmitの相対解釈差異対策）
+      try {
+        const nextInput = form.querySelector('input[name="_next"]');
+        const absoluteNext = new URL(nextInput && nextInput.value ? nextInput.value : 'thanks.html', window.location.href).href;
+        if (nextInput) nextInput.value = absoluteNext; else {
+          const el = document.createElement('input');
+          el.type = 'hidden'; el.name = '_next'; el.value = absoluteNext;
+          form.appendChild(el);
+        }
+      } catch (_) { /* noop */ }
+
+      // 開発時だけ擬似遷移するフラグ（クエリ ?mockThanks=1 または <body data-mock-submit>）
+      const params = new URLSearchParams(location.search);
+      const mock = params.has('mockThanks') || document.body.hasAttribute('data-mock-submit');
+      if (mock) {
+        e.preventDefault();
+        const nextInput = form.querySelector('input[name="_next"]');
+        const nextUrl = (nextInput && nextInput.value) ? nextInput.value : 'thanks.html';
+        try { sessionStorage.setItem('pageTransition', '1'); } catch (_) {}
+        window.location.href = nextUrl;
+        return;
+      }
+
       // 同意済みの場合はデフォルト送信（FormsubmitにPOST）を許可
       // ここでは preventDefault しない
     });

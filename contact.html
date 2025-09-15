@@ -23,10 +23,14 @@
         gap: 0.5em;            /* チェックボックスとテキストの間の隙間 */
         cursor: pointer;
         color: #f0f0f0;         /* 暗い背景でも見えるように文字色を白っぽく指定 */
-        white-space: nowrap;   /* テキストが途中で改行されるのを防ぐ */
+        white-space: normal;   /* スマホで折り返し可能に */
+        flex-wrap: wrap;       /* 長文を折り返し */
       }
       .form-agree label a {
         color: #a7c5ff;       /* リンクの文字色を青っぽく指定 */
+      }
+      @media (max-width: 720px) {
+        .form-agree label { align-items: flex-start; }
       }
     </style>
   </head>
@@ -99,7 +103,6 @@
               </div>
               <button type="submit" class="btn btn-primary">送信</button>
             </div>
-            <p class="note">送信後は確認ページに移動します。</p>
           </form>
         </div>
       </section>
