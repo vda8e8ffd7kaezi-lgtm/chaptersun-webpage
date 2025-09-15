@@ -1581,9 +1581,9 @@ body.preloading .site-footer {
     bottom: -8px;
     z-index: 1;
   }
-  /* スマホ: ヒーロー直下のリード文を約2px小さく */
+  /* スマホ: ヒーロー直下のリード文をさらに約2px小さく */
   .hero-niplanning .lead {
-    font-size: 16px;
-    line-height: 1.7;
+    font-size: 14px;
+    line-height: 1.75;
   }
 }
