@@ -472,8 +472,20 @@ body { padding-top: 64px; }
   background: linear-gradient(90deg, var(--primary), var(--primary-2));
   -webkit-background-clip: text; background-clip: text;
   color: transparent; -webkit-text-fill-color: transparent;
-  white-space: normal; /* allow wrapping on small screens */
-  overflow-wrap: anywhere; /* break long CJK lines gracefully */
+  white-space: nowrap; /* keep the message on a single line on desktop */
+  overflow-wrap: normal;
+}
+
+.firstview .fvm-heading .fvm-heading-break { display: inline; }
+
+@media (max-width: 767px) {
+  .firstview .fvm-heading {
+    white-space: normal;
+  }
+
+  .firstview .fvm-heading .fvm-heading-break {
+    display: block;
+  }
 }
 
 .firstview .fvm-emph { 
