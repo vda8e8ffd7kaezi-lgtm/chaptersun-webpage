@@ -104,7 +104,7 @@
       <section class="services section reveal-rotate-left" data-aurora-color1="#06b6d4" data-aurora-color2="#8b5cf6">
         <div class="container">
           <h2 class="section-title">サービス</h2>
-          <div class="grid grid-2">
+          <div class="grid grid-3">
             <a class="card link reveal-child" href="services.html">
               <h3>AI導入サポート</h3>
               <p>現場ヒアリングをもとに業務整理・優先順位付けを実施し、スモールスタートでの計画を策定します。</p>
@@ -119,6 +119,17 @@
             <a class="card link reveal-child" href="services.html">
               <h3>SNS運用代行</h3>
               <p>企画から制作、運用まで一貫対応。リソースを抑えつつ、ブランドに合った継続的な発信を実現します。</p>
+              <span class="card-click-indicator" aria-hidden="true">
+                <span class="click-icon-word">Click</span>
+                <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+                  <path d="M6 18l12-12"/>
+                  <path d="M11 6h7v7"/>
+                </svg>
+              </span>
+            </a>
+            <a class="card link reveal-child" href="services.html">
+              <h3>HP制作</h3>
+              <p>ビジネスの顔となるホームページを短期間で制作し、レスポンシブ対応やチャットボット導入で商談機会を創出します。</p>
               <span class="card-click-indicator" aria-hidden="true">
                 <span class="click-icon-word">Click</span>
                 <svg viewBox="0 0 24 24" role="presentation" focusable="false">
@@ -181,93 +192,82 @@
             <div class="process-sticky-content">
               <h2 class="section-title">導入の流れ</h2>
               <p class="process-subtitle">お客様の課題解決に向け、5つのステップで伴走します。</p>
-              <ol class="steps-immersive">
-                <li>
-                  <span class="step-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <rect x="3" y="5" width="18" height="14" rx="2"/>
-                      <path d="M3 7l9 6 9-6"/>
-                    </svg>
-                  </span>
-                  <span class="step-label">お問い合わせ</span>
-                  <p>まずはご相談ください</p>
-                </li>
-                <li>
-                  <span class="step-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <circle cx="11" cy="11" r="6"/>
-                      <path d="M16 16l5 5"/>
-                    </svg>
-                  </span>
-                  <span class="step-label">ヒアリング/現状把握</span>
-                  <p>課題を徹底的に分析</p>
-                </li>
-                <li>
-                  <span class="step-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M7 2h7l4 4v16H7z"/>
-                      <path d="M14 2v6h6"/>
-                    </svg>
-                  </span>
-                  <span class="step-label">ご提案/お見積り</span>
-                  <p>最適なプランを設計</p>
-                </li>
-                <li>
-                  <span class="step-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M9 3h6"/>
-                      <path d="M8 7h8l2 10a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3l2-10z"/>
-                    </svg>
-                  </span>
-                  <span class="step-label">PoC/試験導入</span>
-                  <p>効果を可視化</p>
-                </li>
-                <li>
-                  <span class="step-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M5 14c3-3 11-3 14 0"/>
-                      <path d="M12 2l3 5-3 2-3-2 3-5z"/>
-                      <path d="M12 9v10"/>
-                    </svg>
-                  </span>
-                  <span class="step-label">展開/運用支援</span>
-                  <p>成功までサポート</p>
-                </li>
-              </ol>
+              <div class="process-content-grid">
+                <ol class="steps-immersive">
+                  <li>
+                    <span class="step-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="3" y="5" width="18" height="14" rx="2"/>
+                        <path d="M3 7l9 6 9-6"/>
+                      </svg>
+                    </span>
+                    <span class="step-label">お問い合わせ</span>
+                    <p>まずはご相談ください</p>
+                  </li>
+                  <li>
+                    <span class="step-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="11" cy="11" r="6"/>
+                        <path d="M16 16l5 5"/>
+                      </svg>
+                    </span>
+                    <span class="step-label">ヒアリング/現状把握</span>
+                    <p>課題を徹底的に分析</p>
+                  </li>
+                  <li>
+                    <span class="step-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M7 2h7l4 4v16H7z"/>
+                        <path d="M14 2v6h6"/>
+                      </svg>
+                    </span>
+                    <span class="step-label">ご提案/お見積り</span>
+                    <p>最適なプランを設計</p>
+                  </li>
+                  <li>
+                    <span class="step-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M9 3h6"/>
+                        <path d="M8 7h8l2 10a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3l2-10z"/>
+                      </svg>
+                    </span>
+                    <span class="step-label">PoC/試験導入</span>
+                    <p>効果を可視化</p>
+                  </li>
+                  <li>
+                    <span class="step-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M5 14c3-3 11-3 14 0"/>
+                        <path d="M12 2l3 5-3 2-3-2 3-5z"/>
+                        <path d="M12 9v10"/>
+                      </svg>
+                    </span>
+                    <span class="step-label">展開/運用支援</span>
+                    <p>成功までサポート</p>
+                  </li>
+                </ol>
+                <aside class="process-testimonials" aria-label="導入後のお客様の声">
+                  <h3>お客様の声</h3>
+                  <div class="card testimonial">
+                    <p class="quote">メール予約の初期応対をAIが一次受けし、保険種別の説明や来院前問診の要約をスタッフに提案。<br>
+                    <span class="fvm-emph">待ち時間は平均10％短縮、問い合わせの取りこぼしも減少しました。</span><br>
+                    個人情報の取り扱いポリシー策定と職員研修まで伴走いただき、今では無理のない運用ができています。</p>
+                    <div class="author">— クリニックN 様</div>
+                  </div>
+                  <div class="card testimonial">
+                    <p class="quote">現場の紙と電話が多い課題を相談しました。AIによる安全書類のチェック、写真の自動タグ付け、日報の要約まで担い、<br>
+                    <span class="fvm-emph">所長・職員の事務作業が週20時間減。</span><span class="fvm-emph">工程変更の影響も瞬時に洗い出され、手戻りが激減しました。</span><br>
+                    現場の声を吸い上げながら小さく改善を重ね、今後の定着運用へ共に動いていただいております。</p>
+                    <div class="author">— 建設会社Y 様</div>
+                  </div>
+                </aside>
+              </div>
             </div>
           </div>
         </div>
       </section>
       </div>
 
-      
-      <div class="perspective-wrapper">
-      <section class="testimonials section reveal-rotate-right" data-aurora-color1="#6366f1" data-aurora-color2="#a78bfa">
-        <div class="container">
-          <h2 class="section-title">お客様の声</h2>
-          <div class="grid">
-            <div class="card testimonial reveal-child">
-              <p class="quote">メール予約の初期応対をAIが一次受けし、保険種別の説明や来院前問診の要約をスタッフに提案。<br>
-              <span class="fvm-emph">待ち時間は平均10％短縮、問い合わせの取りこぼしも減少しました。</span><br>
-              個人情報の取り扱いポリシー策定と職員研修まで伴走いただき、今では無理のない運用ができています。</p>
-              <div class="author">— クリニックN 様</div>
-            </div>
-            <div class="card testimonial reveal-child">
-              <p class="quote">現場の紙と電話が多い課題を相談しました。AIによる安全書類のチェック、写真の自動タグ付け、日報の要約まで担い、<br>
-              <span class="fvm-emph">所長・職員の事務作業が週20時間減。</span><span class="fvm-emph">工程変更の影響も瞬時に洗い出され、手戻りが激減しました。</span><br>
-              現場の声を吸い上げながら小さく改善を重ね、今後の定着運用へ共に動いていただいております。</p>
-              <div class="author">— 建設会社Y 様</div>
-            </div>
-          </div>
-        </div>
-      </section>
-      </div>
-
-      
-
-      
-
-      
       <div class="perspective-wrapper">
       <section class="access section" data-aurora-color1="#0ea5e9" data-aurora-color2="#22d3ee">
         <div class="container reveal-rise">

@@ -568,6 +568,7 @@ body { padding-top: 64px; }
 .grid-2 { grid-template-columns: repeat(2, 1fr); }
 .grid-3 { grid-template-columns: repeat(3, 1fr); }
 .grid-4 { grid-template-columns: repeat(4, 1fr); }
+.grid-stack { grid-template-columns: 1fr; }
 .card {
   /* Unified glass style — lighter transparency */
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.08));
@@ -1151,33 +1152,31 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); }
   }
 }
 
-/* --- Process: Horizontal Timeline (steps-immersive) --- */
+/* --- Process: Vertical Steps layout with testimonials --- */
 .process-immersive .process-sticky-container { position: relative; }
 .process-immersive .steps-immersive {
   position: relative;
   display: flex;
-  gap: 16px;
+  flex-direction: column;
+  gap: 18px;
   padding: 12px 4px 24px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
 }
-.process-immersive .steps-immersive::before {
-  content: "";
-  position: absolute; left: 0; right: 0; bottom: 18px; height: 2px;
-  background: linear-gradient(90deg, rgba(59,130,246,0.0), rgba(59,130,246,0.45), rgba(99,102,241,0.45), rgba(59,130,246,0.0));
-  pointer-events: none;
-}
+.process-immersive .steps-immersive::before { display: none; }
 .process-immersive .steps-immersive li {
   list-style: none;
-  flex: 0 0 320px;
-  scroll-snap-align: start;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.08));
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
-  border-radius: 16px;
-  padding: 20px;
+  width: 100%;
+  position: relative;
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  column-gap: 20px;
+  row-gap: 6px;
+  align-items: start;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 10px 24px rgba(10, 18, 40, 0.2);
+  border-radius: 18px;
+  padding: 18px 28px;
   transform: translateY(calc(16px + var(--lift, 0)));
   opacity: 0;
   transition: transform .7s cubic-bezier(.22,1,.36,1), opacity .6s ease, box-shadow .25s ease, border-color .25s ease;
@@ -1186,19 +1185,31 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); }
   transform: translateY(var(--lift, 0));
   opacity: 1;
 }
-.process-immersive .steps-immersive li:hover { box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15); transform: translateY(calc(var(--lift, 0) - 5px)) scale(1.02); border-color: rgba(255,255,255,0.85); }
+.process-immersive .steps-immersive li:hover {
+  box-shadow: 0 16px 36px rgba(10, 18, 40, 0.26);
+  transform: translateY(calc(var(--lift, 0) - 5px)) scale(1.02);
+  border-color: rgba(255,255,255,0.75);
+}
 .process-immersive .steps-immersive li .step-icon {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 40px; height: 40px; border-radius: 999px;
-  background: rgba(59,130,246,0.12);
-  color: #93c5fd;
-  margin-bottom: 8px;
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: linear-gradient(140deg, rgba(59,130,246,0.32), rgba(6,182,212,0.22));
+  color: #dbeafe;
+  box-shadow: 0 12px 32px rgba(14, 25, 46, 0.45);
 }
 .process-immersive .steps-immersive li .step-label {
-  display: block;
-  margin-bottom: 6px;
+  grid-column: 2;
+  grid-row: 1;
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
   color: var(--primary);
-  /* Match feature card headings (h3) */
   font-size: clamp(18px, 2.4vw, 22px);
   font-weight: 600;
 }
@@ -1213,20 +1224,80 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); }
 .process-immersive .steps-immersive li:nth-child(3) .step-label::before { content: "③"; }
 .process-immersive .steps-immersive li:nth-child(4) .step-label::before { content: "④"; }
 .process-immersive .steps-immersive li:nth-child(5) .step-label::before { content: "⑤"; }
-.process-immersive .steps-immersive li p { color: #cbd5e1; margin: 0; }
-.process-immersive .steps-immersive li svg { width: 22px; height: 22px; }
-.process-immersive .steps-immersive::-webkit-scrollbar { height: 6px; }
-.process-immersive .steps-immersive::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.4); border-radius: 999px; }
-.process-immersive .steps-immersive::-webkit-scrollbar-track { background: transparent; }
+.process-immersive .steps-immersive li p {
+  grid-column: 2;
+  grid-row: 2;
+  color: #cbd5e1;
+  margin: 0;
+  padding-left: 18px;
+}
+.process-immersive .steps-immersive li svg { width: 28px; height: 28px; }
+.process-immersive .steps-immersive::-webkit-scrollbar { height: 0; }
 
-@media (max-width: 960px) {
-  .process-immersive .steps-immersive {
-    overflow-x: visible;
-    flex-direction: column;
-    scroll-snap-type: none;
+.process-content-grid {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(24px, 4vw, 40px);
+  flex-wrap: wrap;
+}
+.process-content-grid > .steps-immersive { flex: 1 1 360px; min-width: 320px; }
+.process-testimonials {
+  flex: 0 1 clamp(280px, 32%, 360px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px 20px;
+  border-radius: 20px;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(148, 197, 255, 0.25);
+  box-shadow: 0 20px 40px rgba(10, 18, 40, 0.35);
+}
+.process-testimonials h3 {
+  margin: 0;
+  font-size: clamp(18px, 2.2vw, 20px);
+  font-weight: 700;
+  color: rgba(224, 242, 254, 0.9);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.process-testimonials .card.testimonial {
+  margin: 0;
+  background: linear-gradient(145deg, rgba(59,130,246,0.18), rgba(6,182,212,0.14));
+  border: 1px solid rgba(148, 197, 255, 0.35);
+  box-shadow: 0 16px 36px rgba(8, 17, 35, 0.4);
+  color: #e2e8f0;
+}
+.process-testimonials .quote {
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+.process-testimonials .author {
+  font-weight: 600;
+  color: rgba(224, 242, 254, 0.9);
+}
+
+@media (max-width: 720px) {
+  .process-immersive .steps-immersive li { grid-template-columns: 62px minmax(0, 1fr); column-gap: 18px; padding: 18px 20px; }
+  .process-immersive .steps-immersive li .step-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 18px;
+    grid-column: 1;
+    grid-row: 1;
   }
-  .process-immersive .steps-immersive::before { display: none; }
-  .process-immersive .steps-immersive li { flex: 1 1 auto; }
+  .process-immersive .steps-immersive li .step-label { grid-column: 2; grid-row: 1; }
+  .process-immersive .steps-immersive li p { grid-column: 2; grid-row: 2; margin-top: 4px; padding-left: 14px; }
+  .process-content-grid { flex-direction: column; }
+  .process-testimonials { flex: 1 1 auto; width: 100%; padding: 18px; }
+}
+
+@media (max-width: 520px) {
+  .process-immersive .steps-immersive li { grid-template-columns: 1fr; padding: 18px; }
+  .process-immersive .steps-immersive li .step-icon { margin-bottom: 12px; grid-row: 1; justify-self: flex-start; }
+  .process-immersive .steps-immersive li .step-label { grid-column: 1; grid-row: 2; }
+  .process-immersive .steps-immersive li p { grid-column: 1; grid-row: 3; margin-top: 4px; padding-left: 0; }
 }
 
 /* --- Cursor Aura (Double Ring) --- */
