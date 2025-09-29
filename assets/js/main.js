@@ -486,8 +486,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
 
-    const color1 = new THREE.Color('#3b82f6'); // blue-500
-    const color2 = new THREE.Color('#06b6d4'); // cyan-500
+    const gradientStops = [
+      new THREE.Color('#2563eb'), // vivid blue
+      new THREE.Color('#0ea5e9'), // cyan accent
+      new THREE.Color('#14b8a6'), // teal bridge
+      new THREE.Color('#22c55e'), // fresh green
+    ];
+
+    const sampleGradient = () => {
+      const span = gradientStops.length - 1;
+      if (span <= 0) return gradientStops[0];
+      const t = Math.random() * span;
+      const idx = Math.floor(t);
+      const localT = t - idx;
+      return gradientStops[idx].clone().lerp(gradientStops[idx + 1], localT);
+    };
 
     for (let i = 0; i < particleCount; i++) {
       const i3 = i * 3;
@@ -495,7 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
       positions[i3 + 1] = (Math.random() - 0.5) * 2000; // y
       positions[i3 + 2] = (Math.random() - 0.5) * 2000; // z (奥行き)
 
-      const mixedColor = color1.clone().lerp(color2, Math.random());
+      const mixedColor = sampleGradient();
       colors[i3] = mixedColor.r;
       colors[i3 + 1] = mixedColor.g;
       colors[i3 + 2] = mixedColor.b;
